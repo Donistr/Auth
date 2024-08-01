@@ -3,6 +3,7 @@ package org.example.auth.controller;
 import org.example.auth.dto.AccessTokenDTO;
 import org.example.auth.dto.GetAccessTokenDTO;
 import org.example.auth.dto.RefreshTokenDTO;
+import org.example.auth.dto.ResponseObject;
 import org.example.auth.dto.SignInUserDTO;
 import org.example.auth.dto.SignUpUserDTO;
 import org.example.auth.service.UserService;
@@ -26,9 +27,9 @@ public class AuthController {
     }
 
     @PutMapping("/signup")
-    public ResponseEntity<Void> signUp(@RequestBody SignUpUserDTO signupRequest) {
+    public ResponseEntity<ResponseObject> signUp(@RequestBody SignUpUserDTO signupRequest) {
         userService.signUp(signupRequest);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new ResponseObject("success"));
     }
 
     @PostMapping("/signin")

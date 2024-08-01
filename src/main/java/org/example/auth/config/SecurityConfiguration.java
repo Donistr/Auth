@@ -1,6 +1,5 @@
 package org.example.auth.config;
 
-import org.example.auth.role.RoleEnum;
 import org.example.auth.filter.JwtAuthenticationFilter;
 import org.example.auth.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,18 +37,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request ->
-                        request.requestMatchers("/auth/signin",
-                                        "/auth/signup",
-                                        "/auth/get-access-token",
-                                        "/swagger-ui/**",
-                                        "/v3/**").permitAll()
-                                .requestMatchers("/user-roles").authenticated()
-                                .requestMatchers("roles/**", "/user-roles/**")
-                                        .hasRole(RoleEnum.ADMIN.getValue())
-                                        .anyRequest()
-                                        .authenticated()
-                )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

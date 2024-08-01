@@ -7,5 +7,7 @@
 
     <changeSet id="2" author="Donistr">
         <sqlFile path="db/changelog/data/roles.sql"/>
+        <sqlFile path="db/changelog/data/users.sql"/>
+        <sqlFile path="db/changelog/data/user_roles.sql"/>
     </changeSet>
 </databaseChangeLog>
