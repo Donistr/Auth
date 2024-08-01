@@ -19,8 +19,8 @@ import org.example.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -36,21 +36,19 @@ public class UserServiceImpl implements UserService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final PasswordEncoder passwordEncoder;
+
     private final JwtUtil jwtUtil;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+                           AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder,
+                           JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("не найден пользователь с username=" + username));
     }
 
     @Override
@@ -65,7 +63,7 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .username(signUpUserDTO.getUsername())
                 .email(signUpUserDTO.getEmail())
-                .password(signUpUserDTO.getPassword())
+                .password(passwordEncoder.encode(signUpUserDTO.getPassword()))
                 .roles(Set.of(roleRepository.findById(DEFAULT_ROLE)
                         .orElseThrow(() -> new RoleNotFoundException("не найдена роль " + DEFAULT_ROLE.getValue()))))
                 .build();

@@ -5,9 +5,8 @@ import org.example.auth.dto.GetAccessTokenDTO;
 import org.example.auth.dto.RefreshTokenDTO;
 import org.example.auth.dto.SignInUserDTO;
 import org.example.auth.dto.SignUpUserDTO;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
 
     void signUp(SignUpUserDTO signUpUserDTO);
 
