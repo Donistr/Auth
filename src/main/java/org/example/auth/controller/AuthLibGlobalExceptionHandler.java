@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * Этот класс ловит все исключения в приложении
  */
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class AuthLibGlobalExceptionHandler {
 
     /**
      * Ловит все исключения типа BaseException
@@ -20,16 +20,6 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<ResponseObject> handle(BaseException exception) {
-        return new ResponseEntity<>(new ResponseObject(exception.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-
-    /**
-     * Ловит все исключения типа Throwable
-     * @param exception исключение
-     * @return ответ сервера
-     */
-    @ExceptionHandler(Throwable.class)
-    public ResponseEntity<ResponseObject> handle(Throwable exception) {
         return new ResponseEntity<>(new ResponseObject(exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
 

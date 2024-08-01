@@ -24,13 +24,13 @@ public class JwtUtilImpl implements JwtUtil {
 
     private static final String ROLES_KEY = "roles";
 
-    @Value("${auth.secret-key}")
+    @Value("${authlib.secret-key}")
     private String secretKey;
 
-    @Value("${auth.access-token-expiration-time-millis}")
+    @Value("${authlib.access-token-expiration-time-millis}")
     private long accessTokenExpirationTimeMillis;
 
-    @Value("${auth.refresh-token-expiration-time-millis}")
+    @Value("${authlib.refresh-token-expiration-time-millis}")
     private long refreshTokenExpirationTimeMillis;
 
     @Override
