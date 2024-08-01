@@ -41,7 +41,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/auth/signin",
                                         "/auth/signup",
-                                        "/auth/refresh-token",
+                                        "/auth/get-access-token",
                                         "/swagger-ui/**",
                                         "/v3/**").permitAll()
                                 .requestMatchers("/user-roles").authenticated()
