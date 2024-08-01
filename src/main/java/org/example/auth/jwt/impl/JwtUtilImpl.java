@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.Set;
 import java.util.function.Function;
 
 @Component
@@ -36,7 +35,7 @@ public class JwtUtilImpl implements JwtUtil {
     @Override
     public String generateRefreshToken(User user) {
         return Jwts.builder()
-                .claim(TOKEN_TYPE_KEY, TokenType.REFRESH)
+                .claim(TOKEN_TYPE_KEY, TokenType.REFRESH.getValue())
                 .claim(ROLES_KEY, user.getRoles())
                 .subject(user.getUsername())
                 .issuedAt(new Date())
@@ -47,14 +46,14 @@ public class JwtUtilImpl implements JwtUtil {
 
     @Override
     public String generateAccessToken(String refreshToken, User user) {
-        if (isTokenValid(refreshToken, user, TokenType.REFRESH)) {
+        if (!isTokenValid(refreshToken, user, TokenType.REFRESH)) {
             throw new IllegalTokenException("токен не валиден");
         }
 
         Claims claims = extractAllClaims(refreshToken);
         return Jwts.builder()
-                .claim(TOKEN_TYPE_KEY, TokenType.ACCESS)
-                .claim(ROLES_KEY, claims.get(ROLES_KEY, Set.class))
+                .claim(TOKEN_TYPE_KEY, TokenType.ACCESS.getValue())
+                .claim(ROLES_KEY, claims.get(ROLES_KEY))
                 .subject(claims.getSubject())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + accessTokenExpirationTimeMillis))
@@ -79,7 +78,7 @@ public class JwtUtilImpl implements JwtUtil {
     }
 
     private TokenType getTokenType(String token) {
-        return extractAllClaims(token).get(TOKEN_TYPE_KEY, TokenType.class);
+        return TokenType.valueOf(extractAllClaims(token).get(TOKEN_TYPE_KEY, String.class));
     }
 
     private SecretKey generateKey() {
