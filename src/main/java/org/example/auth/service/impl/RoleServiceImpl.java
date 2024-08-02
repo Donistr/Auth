@@ -15,6 +15,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Реализует интерфейс {@link RoleService}
+ */
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -28,6 +31,9 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserRolesDTO setUserRoles(UserRolesDTO userRolesDTO) {
         User user = userRepository.findByUsernameAndIsActiveTrue(userRolesDTO.getUsername())

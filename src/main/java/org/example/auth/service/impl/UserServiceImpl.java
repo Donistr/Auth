@@ -28,6 +28,9 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Реализует интерфейс {@link UserService}
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -54,6 +57,9 @@ public class UserServiceImpl implements UserService {
         this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void signUp(SignUpUserDTO signUpUserDTO) {
         if (userRepository.existsByUsername(signUpUserDTO.getUsername())) {
@@ -74,6 +80,9 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public RefreshTokenDTO signIn(SignInUserDTO signInUserDTO) {
         String username = signInUserDTO.getUsername();
@@ -89,6 +98,9 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AccessTokenDTO getAccessToken(GetAccessTokenDTO getAccessTokenDTO) {
         String refreshToken = getAccessTokenDTO.getRefreshToken();
@@ -107,6 +119,9 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserRolesDTO getUserRoles(String username) {
         User user = userRepository.findByUsernameAndIsActiveTrue(username)

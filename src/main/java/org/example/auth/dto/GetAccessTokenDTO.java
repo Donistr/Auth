@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Этот класс представляет DTO для получения access token-а
+ */
 @Data
 @Builder
 @NoArgsConstructor

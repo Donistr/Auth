@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * Этот класс представляет DTO для access token-а
+ */
 @Data
 @Builder
 public class AccessTokenDTO {

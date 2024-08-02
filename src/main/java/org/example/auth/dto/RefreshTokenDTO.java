@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * Этот класс представляет DTO для refresh token-а
+ */
 @Data
 @Builder
 public class RefreshTokenDTO {

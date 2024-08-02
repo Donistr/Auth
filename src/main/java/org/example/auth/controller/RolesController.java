@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST контроллер для взаимодействия с ролями пользователей
+ */
 @Tag(name = "api для взаимодействия с ролями пользователей")
 @RestController
 @RequestMapping("/roles")
@@ -27,6 +30,11 @@ public class RolesController {
         this.roleService = roleService;
     }
 
+    /**
+     * Устанавливает пользователю заданный набор родей
+     * @param userRolesDTO запрос
+     * @return Пользователь с его ролями
+     */
     @Operation(summary = "Установить пользователю заданный набор родей",
             description = "Роли устанавливаются, а не добавляются")
     @ApiResponse(responseCode = "200",

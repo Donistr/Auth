@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST контроллер для получения информации о ролях пользователей
+ */
 @Tag(name = "api для получения информации о ролях пользователей")
 @RestController
 @RequestMapping("/user-roles")
@@ -32,6 +35,11 @@ public class UserRolesController {
         this.userService = userService;
     }
 
+    /**
+     * Получает роли пользователя
+     * @param username логин
+     * @return Пользователь с его ролями
+     */
     @Operation(summary = "Получить роли пользователя",
             description = "Админ может получить доступ к ролям любого пользователя, любой другой пользователь - " +
                     "только к своим")

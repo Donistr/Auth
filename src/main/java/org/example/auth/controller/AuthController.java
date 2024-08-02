@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST контроллер для аутентификации
+ */
 @Tag(name = "api для аутентификации")
 @RestController
 @RequestMapping("/auth")
@@ -32,6 +35,11 @@ public class AuthController {
         this.userService = userService;
     }
 
+    /**
+     * Регистрирует пользователя
+     * @param signupRequest запрос
+     * @return success
+     */
     @Operation(summary = "Зарегистрироваться")
     @ApiResponse(responseCode = "200",
             content = { @Content }
@@ -42,6 +50,11 @@ public class AuthController {
         return ResponseEntity.ok(new ResponseObject("success"));
     }
 
+    /**
+     * Аутентифицирует пользователя
+     * @param signInUserDTO запрос
+     * @return refresh token
+     */
     @Operation(summary = "Войти")
     @ApiResponse(responseCode = "200",
             description = "refresh token",
@@ -53,6 +66,11 @@ public class AuthController {
         return ResponseEntity.ok(userService.signIn(signInUserDTO));
     }
 
+    /**
+     * Получает access token по refresh token-у
+     * @param getAccessTokenDTO refresh token
+     * @return access token
+     */
     @Operation(summary = "Получить access token по refresh token-у")
     @ApiResponse(responseCode = "200",
             description = "access token",

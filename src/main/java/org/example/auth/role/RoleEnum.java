@@ -3,6 +3,9 @@ package org.example.auth.role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Этот енам представляет роли пользователей
+ */
 @AllArgsConstructor
 @Getter
 public enum RoleEnum {

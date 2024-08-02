@@ -8,6 +8,9 @@ import org.example.auth.role.RoleEnum;
 
 import java.util.Set;
 
+/**
+ * Этот класс представляет DTO для пользователя с его ролями
+ */
 @Data
 @Builder
 public class UserRolesDTO {

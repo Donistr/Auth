@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.auth.role.RoleEnum;
 
+/**
+ * Entity представляющее роль пользователя
+ */
 @Entity
 @Table(name = "roles")
 @Getter

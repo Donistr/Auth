@@ -3,6 +3,9 @@ package org.example.auth.jwt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Этот енам представляет типы токенов
+ */
 @AllArgsConstructor
 @Getter
 public enum TokenType {

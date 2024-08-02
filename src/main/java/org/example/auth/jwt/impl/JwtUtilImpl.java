@@ -1,7 +1,6 @@
 package org.example.auth.jwt.impl;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -17,6 +16,9 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.function.Function;
 
+/**
+ * Реализует интерфейс {@link JwtUtil}
+ */
 @Component
 public class JwtUtilImpl implements JwtUtil {
 
@@ -33,6 +35,9 @@ public class JwtUtilImpl implements JwtUtil {
     @Value("${authlib.refresh-token-expiration-time-millis}")
     private long refreshTokenExpirationTimeMillis;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String generateRefreshToken(User user) {
         try {
@@ -49,6 +54,9 @@ public class JwtUtilImpl implements JwtUtil {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String generateAccessToken(String refreshToken, User user) {
         try {
@@ -70,6 +78,9 @@ public class JwtUtilImpl implements JwtUtil {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String extractUsername(String token) {
         try {
@@ -79,6 +90,9 @@ public class JwtUtilImpl implements JwtUtil {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails, TokenType tokenType) {
         try {
@@ -89,6 +103,9 @@ public class JwtUtilImpl implements JwtUtil {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Date getExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
@@ -102,18 +119,32 @@ public class JwtUtilImpl implements JwtUtil {
         }
     }
 
+    /**
+     * Генерирует ключ
+     * @return ключ
+     */
     private SecretKey generateKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) throws JwtException,
-            IllegalArgumentException {
+    /**
+     * Получает claim из токена
+     * @param token токен
+     * @param claimsResolvers функция для получения claim-а
+     * @return claim
+     */
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);
         return claimsResolvers.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) throws JwtException, IllegalArgumentException {
+    /**
+     * Получает все claims из токена
+     * @param token токен
+     * @return все claims
+     */
+    private Claims extractAllClaims(String token) {
         return Jwts.parser()
                 .verifyWith(generateKey())
                 .build()
@@ -121,7 +152,12 @@ public class JwtUtilImpl implements JwtUtil {
                 .getPayload();
     }
 
-    private boolean isTokenExpired(String token) throws JwtException, IllegalArgumentException {
+    /**
+     * Проверяет, истёк ли срок действия токена
+     * @param token токен
+     * @return истёк ли срок действия токена
+     */
+    private boolean isTokenExpired(String token) {
         return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 

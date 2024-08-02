@@ -19,6 +19,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Этот класс обеспечивает установку пользователю ролей при запросе
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
